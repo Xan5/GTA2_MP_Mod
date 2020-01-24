@@ -1,0 +1,11 @@
+﻿  Source.cpp
+c:\users\xan\source\repos\gta2mp\project1\source.cpp(76): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'WCHAR *'
+  c:\users\xan\source\repos\gta2mp\project1\source.cpp(76): note: consider using '%ls' in the format string
+  c:\users\xan\source\repos\gta2mp\project1\source.cpp(76): note: consider using '%lls' in the format string
+  c:\users\xan\source\repos\gta2mp\project1\source.cpp(76): note: consider using '%Ls' in the format string
+  c:\users\xan\source\repos\gta2mp\project1\source.cpp(76): note: consider using '%ws' in the format string
+c:\users\xan\source\repos\gta2mp\project1\source.cpp(38): warning C4101: 'dwPriorityClass': unreferenced local variable
+  Generating code
+  All 20 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Project1.vcxproj -> C:\Users\Xan\source\repos\GTA2MP\Release\Project1.exe
