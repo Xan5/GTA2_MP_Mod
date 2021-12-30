@@ -1,2 +1,0 @@
-﻿Source.obj : error LNK2001: unresolved external symbol "int var1" (?var1@@3HA)
-C:\Users\Xan\source\repos\GTA2MP\Debug\Project1.exe : fatal error LNK1120: 1 unresolved externals

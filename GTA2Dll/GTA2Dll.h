@@ -1,5 +1,5 @@
 #pragma once
 
-extern int var1;
-
-void ShowBigLabel();
+void ShowBigLabel(const char* message);
+Ped* GetPedById(int id);
+void SetShowCycleOn();

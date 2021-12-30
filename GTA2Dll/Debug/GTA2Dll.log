@@ -1,5 +1,0 @@
-﻿  GTA2Dll.cpp
-c:\users\xan\source\repos\gta2mp\gta2dll\gta2dll.cpp(3): warning C4603: '_WIN32_WINNT': macro is not defined or definition is different after precompiled header use
-  c:\users\xan\source\repos\gta2mp\gta2dll\gta2dll.cpp(3): note: Add macro to precompiled header instead of defining here
-  c:\users\xan\source\repos\gta2mp\gta2dll\gta2dll.cpp(4): note: use of precompiled header
-  GTA2Dll.vcxproj -> C:\Users\Xan\source\repos\GTA2MP\Debug\GTA2Dll.dll

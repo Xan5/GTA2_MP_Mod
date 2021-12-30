@@ -1,14 +1,24 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #define _WIN32_WINNT _WIN32_WINNT_WINXP
 #include "stdafx.h"
-#include <stdlib.h>
 #include "GTA2Dll.h"
-
+#include "Console.h"
+#include <exception>
 HANDLE hThread;
 
-void StartWatching() {
+void Start() {
+    SetupLogger();
+    Log("start");
+    SetShowCycleOn();
 	//WaitForSingleObject(hThread, INFINITE);
-	ShowBigLabel();
+    while (true)
+    {
+        Log("cycle");
+        //ShowBigLabel("DERWISZ TO CIOTA");
+        //Ped* ped = GetPedById(1);
+
+        Sleep(4000);
+    }
 }
 
 BOOL APIENTRY DllMain( HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
@@ -16,7 +26,7 @@ BOOL APIENTRY DllMain( HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpRese
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-		hThread = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)StartWatching, 0, 0, 0);
+		hThread = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)Start, 0, 0, 0);
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
     case DLL_PROCESS_DETACH:

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GTA2Dll", "GTA2Dll\GTA2Dll.vcxproj", "{AE8C6887-BCA6-498D-B646-D2BCA17269B3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project1", "Project1\Project1.vcxproj", "{932E74D9-AE58-4A52-9531-FB3970FDBB00}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Injector", "Injector\Injector.vcxproj", "{932E74D9-AE58-4A52-9531-FB3970FDBB00}"
 	ProjectSection(ProjectDependencies) = postProject
 		{AE8C6887-BCA6-498D-B646-D2BCA17269B3} = {AE8C6887-BCA6-498D-B646-D2BCA17269B3}
 	EndProjectSection

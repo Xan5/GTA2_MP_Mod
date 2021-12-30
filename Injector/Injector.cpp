@@ -1,13 +1,9 @@
 // Injector.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+
 #include <iostream>
 #include <windows.h>
-#include "stdio.h"
-#include "Windows.h"
-#include "tlhelp32.h"
-#include "tchar.h"
-#include "wchar.h"
-#include "pch.h"
+#include <tlhelp32.h>
+#include <comdef.h> 
 
 using namespace std;
 
@@ -16,20 +12,27 @@ BOOL loadRemoteDLL(HANDLE hProcess, const char* dllPath);
 
 int main()
 {
+	ShellExecute(NULL, "open", "gta2.exe", NULL, "...\\GTA2", SW_SHOWDEFAULT);
 
-	char exePath[] = "D:\GTA2\gta2.exe\0";
-	char dllPath[9] = "dll.dll\0";
+	_bstr_t exeName("gta2.exe");
+	char dllPath[] = "...\\GTA2MP\\Debug\\GTA2Dll.dll";
 
-	HANDLE hProcess = findProcess((LPWSTR)exePath);
+	while (true)
+	{
+		HANDLE hProcess = findProcess(exeName);
+		if (hProcess != NULL) {
+			BOOL injectSuccessful = loadRemoteDLL(hProcess, dllPath);
+			if (injectSuccessful) {
+				//printf("[+] DLL injection successful! \n");
+				exit(0);
+			}
+			else {
+				printf("[-] DLL injection failed. \n");
+				getchar();
+			}
+		}
 
-	BOOL injectSuccessful = loadRemoteDLL(hProcess, dllPath);
-	if (injectSuccessful) {
-		printf("[+] DLL injection successful! \n");
-		getchar();
-	}
-	else {
-		printf("[---] DLL injection failed. \n");
-		getchar();
+		Sleep(1000);
 	}
 }
 
@@ -42,7 +45,7 @@ HANDLE findProcess(WCHAR* processName) {
 	// Take a snapshot of all processes in the system.
 	hProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 	if (hProcessSnap == INVALID_HANDLE_VALUE) {
-		printf("[---] Could not create snapshot.\n");
+		printf("[-] Could not create snapshot.\n");
 	}
 
 	// Set the size of the structure before using it.
@@ -51,7 +54,7 @@ HANDLE findProcess(WCHAR* processName) {
 	// Retrieve information about the first process,
 	// and exit if unsuccessful
 	if (!Process32First(hProcessSnap, &pe32)) {
-		printf("[---] Process32First");
+		printf("[-] Process32First");
 		CloseHandle(hProcessSnap);
 		return FALSE;
 	}
@@ -59,16 +62,15 @@ HANDLE findProcess(WCHAR* processName) {
 	// Now walk the snapshot of processes, and
 	// display information about each process in turn
 	do {
-
-		if (!wcscmp(pe32.szExeFile, processName)) {
-			wprintf(L"[+] The process %s was found in memory.\n", pe32.szExeFile);
+		if (!wcscmp(_bstr_t(pe32.szExeFile), processName)) {
+			printf("The process %s was found in memory.\n", pe32.szExeFile);
 
 			hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pe32.th32ProcessID);
 			if (hProcess != NULL) {
 				return hProcess;
 			}
 			else {
-				printf("[---] Failed to open process %s.\n", pe32.szExeFile);
+				printf("[-] Failed to open process %s.\n", pe32.szExeFile);
 				return NULL;
 
 			}
@@ -76,18 +78,19 @@ HANDLE findProcess(WCHAR* processName) {
 
 	} while (Process32Next(hProcessSnap, &pe32));
 
-	printf("[---] %s has not been loaded into memory, aborting.\n", processName);
+	printf("[-] %s has not been loaded into memory, aborting.\n", processName);
 	return NULL;
 }
 
 BOOL loadRemoteDLL(HANDLE hProcess, const char* dllPath) {
-	printf("Enter any key to attempt DLL injection.");
-	getchar();
+	//printf("Enter any key to attempt DLL injection.");
+	//getchar();
+	Sleep(1000);
 
 	// Allocate memory for DLL's path name to remote process
 	LPVOID dllPathAddressInRemoteMemory = VirtualAllocEx(hProcess, NULL, strlen(dllPath), MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 	if (dllPathAddressInRemoteMemory == NULL) {
-		printf("[---] VirtualAllocEx unsuccessful.\n");
+		printf("[-] VirtualAllocEx unsuccessful.\n");
 		getchar();
 		return FALSE;
 	}
@@ -96,22 +99,22 @@ BOOL loadRemoteDLL(HANDLE hProcess, const char* dllPath) {
 	BOOL succeededWriting = WriteProcessMemory(hProcess, dllPathAddressInRemoteMemory, dllPath, strlen(dllPath), NULL);
 
 	if (!succeededWriting) {
-		printf("[---] WriteProcessMemory unsuccessful.\n");
+		printf("[-] WriteProcessMemory unsuccessful.\n");
 		getchar();
 		return FALSE;
 	}
 	else {
 		// Returns a pointer to the LoadLibrary address. This will be the same on the remote process as in our current process.
-		LPVOID loadLibraryAddress = (LPVOID)GetProcAddress(GetModuleHandle(L"kernel32.dll"), "LoadLibraryA");
+		LPVOID loadLibraryAddress = (LPVOID)GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
 		if (loadLibraryAddress == NULL) {
-			printf("[---] LoadLibrary not found in process.\n");
+			printf("[-] LoadLibrary not found in process.\n");
 			getchar();
 			return FALSE;
 		}
 		else {
 			HANDLE remoteThread = CreateRemoteThread(hProcess, NULL, NULL, (LPTHREAD_START_ROUTINE)loadLibraryAddress, dllPathAddressInRemoteMemory, NULL, NULL);
 			if (remoteThread == NULL) {
-				printf("[---] CreateRemoteThread unsuccessful.\n");
+				printf("[-] CreateRemoteThread unsuccessful.\n");
 				return FALSE;
 			}
 		}
