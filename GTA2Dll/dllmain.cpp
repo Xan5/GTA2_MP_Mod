@@ -3,7 +3,7 @@
 #include "stdafx.h"
 #include "GTA2Dll.h"
 #include "Console.h"
-#include <exception>
+
 HANDLE hThread;
 
 void Start() {
@@ -14,10 +14,8 @@ void Start() {
     while (true)
     {
         Log("cycle");
-        //ShowBigLabel("DERWISZ TO CIOTA");
-        //Ped* ped = GetPedById(1);
-
-        Sleep(4000);
+        Test();
+        Sleep(1000);
     }
 }
 

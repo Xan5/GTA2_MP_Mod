@@ -1533,7 +1533,7 @@ struct Ped {
 	undefined field_0x213;
 	undefined field_0x214;
 	undefined field_0x215;
-	short health;
+	short notHealth;
 	short incrTo9999;
 	short field_0x21a;
 	enum PED_BIT_STATE bitStateInvisOnFireEtc; /* invisibilty, electrofingers on fire and more  */
@@ -5215,7 +5215,7 @@ struct PositionsArray_S21 {
 
 typedef struct S10 S10, *PS10;
 
-struct S10 {
+struct S10 { 
 	undefined field_0x0[46];
 	char field_0x2e;
 	undefined field_0x2f[29];
@@ -5223,9 +5223,9 @@ struct S10 {
 	undefined field_0x50[10000];
 	void * field_0x2760;
 	undefined field_0x2764[81];
-	undefined1 displayDebugPedInfo; /* Created by retype action */
+	undefined1 displayDebugPedInfo;
 	undefined field_0x27b6[158];
-	undefined1 ptrToSomeStructRelToBIG_LABEL; /* Created by retype action */
+	undefined1 ptrToSomeStructRelToBIG_LABEL; //offset=10324 or 0x2854
 	undefined field_0x2855[671];
 	int text_speed;
 };
@@ -6388,25 +6388,16 @@ struct TrafficLigthStruct {
 		undefined field_0x115;
 		undefined field_0x116;
 		undefined field_0x117;
-		undefined field_0x118;
-		undefined field_0x119;
-		undefined field_0x11a;
-		undefined field_0x11b;
-		undefined field_0x11c;
-		undefined field_0x11d;
-		undefined field_0x11e;
-		undefined field_0x11f;
-		undefined field_0x120;
-		undefined field_0x121;
-		undefined field_0x122;
-		undefined field_0x123;
+		int cameraXtype1;
+		int cameraYtype1;
+		int cameraZtype1;
 		undefined field_0x124;
 		undefined field_0x125;
 		undefined field_0x126;
 		undefined field_0x127;
-		int field_0x128;
-		int field_0x12c;
-		int field_0x130;
+		int cameraXtype2;
+		int cameraYtype2;
+		int cameraZtype2;
 		undefined field_0x134;
 		undefined field_0x135;
 		undefined field_0x136;
@@ -6435,10 +6426,46 @@ struct TrafficLigthStruct {
 		undefined field_0x14d;
 		undefined field_0x14e;
 		undefined field_0x14f;
-		undefined field_0x150[148];
-		int field_0x1e4;
-		int field_0x1e8;
-		int field_0x1ec;
+		int field_0x150;
+		int field_0x154;
+		int field_0x158;
+		int field_0x15c;
+		int field_0x160;
+		int field_0x164;
+		int field_0x168;
+		int field_0x16c;
+		int field_0x170;
+		int field_0x174;
+		int field_0x178;
+		int field_0x17c;
+		int field_0x180;
+		int field_0x184;
+		int field_0x188;
+		int field_0x18c;
+		int field_0x190;
+		int field_0x194;
+		int field_0x198;
+		int field_0x19c;
+		int field_0x1a0;
+		int field_0x1a4;
+		int field_0x1a8;
+		int field_0x1ac;
+		int field_0x1b0;
+		int field_0x1b4;
+		int field_0x1b8;
+		int field_0x1bc;
+		int field_0x1c0;
+		int field_0x1c4;
+		int field_0x1c8;
+		int field_0x1cc;
+		int field_0x1d0;
+		int cameraXtype3;
+		int cameraYtype3;
+		int cameraZtype3;
+		int field_0x1e0; 
+		int cameraXtype4;
+		int cameraYtype4;
+		int cameraZtype4;
 		undefined field_0x1f0[176];
 		int field_0x2a0;
 		int field_0x2a4;
@@ -6467,8 +6494,8 @@ struct TrafficLigthStruct {
 		undefined field_0x2c1;
 		undefined field_0x2c2;
 		undefined field_0x2c3;
-		struct Ped* ped;
-		struct Ped* field_0x2c8;
+		struct PedV2* ped;
+		struct PedV2* field_0x2c8;
 		undefined field_0x2cc;
 		undefined field_0x2cd;
 		undefined field_0x2ce;

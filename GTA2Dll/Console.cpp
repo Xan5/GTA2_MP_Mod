@@ -7,9 +7,16 @@
 void Log(const char* message) {
     std::cout << message << std::endl;
 }
+void Log(const char* message, int value) {
+    std::cout << message << value << std::endl;
+}
 
 void Log(int message) {
     std::cout << message << std::endl;
+}
+
+void LogInHex(int message) {
+    std::cout << std::hex << message << std::endl;
 }
 
 void Log(std::string message) {
@@ -33,4 +40,5 @@ void SetupFileLogger() {
 
 void SetupLogger() {
     SetupConsoleLogger();
+    //SetupFileLogger();
 }
