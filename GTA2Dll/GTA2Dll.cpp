@@ -2,14 +2,14 @@
 
 #define _WIN32_WINNT _WIN32_WINNT_WINXP
 #include "stdafx.h"
-#include "GTA2Dll.h"
 #include <comdef.h> 
+#include "GTA2Dll.h"
 #include "Console.h"
 
-void EditMemory(DWORD dwAddress, DWORD dwVal, DWORD type)
-{
-	memcpy((void*)dwAddress, (void*)&dwVal, type);
-}
+GameV2* game = (GameV2*)*(DWORD*)0x005eb4fc;
+S8* s8 = (S8*)*(DWORD*)0x006644bc;
+S10* s10 = (S10*)*(DWORD*)0x00672f40;
+
 
 //void __thiscall ShowBigOnScreenLabel(void* this, WCHAR* txt, int timeToShow);
 typedef void(__fastcall _ShowBigLabelLink)(void* ptr, DWORD edx, WCHAR* txt, int time);
@@ -26,11 +26,6 @@ static _WarpPed* WarpPed = (_WarpPed*)0x00491e00;
 
 typedef void(__fastcall _FUN_00476e50)(void* ptr, DWORD edx, int z);
 static _FUN_00476e50* FUN_00476e50 = (_FUN_00476e50*)0x00476e50;
-
-
-GameV2* game = (GameV2*)*(DWORD*)0x005eb4fc;
-S8* s8 = (S8*)*(DWORD*)0x006644bc;
-S10* s10 = (S10*) * (DWORD*)0x00672f40;
 
 void ShowBigLabel(const char* message) {
 	_bstr_t castedMessage(message);
