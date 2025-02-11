@@ -71,7 +71,6 @@ void WarpPlayerAndSetCamera(Player_S4* player, int x, int y, int z, short rotati
 }
 
 void Test() {
-
 }
 
 

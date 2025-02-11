@@ -1,14 +1,14 @@
 const std = @import("std");
 
 pub fn build(b: *std.Build) !void {
-    const target = b.standardTargetOptions(.{ .default_target = .{ .abi = .msvc } });
+    const target = b.standardTargetOptions(.{ .default_target = .{ .cpu_arch = .x86, .abi = .msvc } });
     const optimize = b.standardOptimizeOption(.{});
 
     const cflags = [_][]const u8{
         "-pedantic-errors",
         "-Wc++11-extensions",
         "-std=c++14",
-        "-g",
+        // "-g",
         "-Wmicrosoft-enum-forward-reference",
     };
 
