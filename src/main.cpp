@@ -1,8 +1,8 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 /* #define _WIN32_WINNT _WIN32_WINNT_WINXP */
-#include "Console.h"
-#include "GTA2Dll.h"
 #include <windows.h>
+#include "console.h"
+#include "dll.h"
 
 /* #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from
  * Windows headers */

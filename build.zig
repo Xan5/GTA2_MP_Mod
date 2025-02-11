@@ -30,7 +30,7 @@ pub fn build(b: *std.Build) !void {
         .optimize = optimize,
     });
 
-    var dir = try std.fs.cwd().openDir("dll", .{ .iterate = true });
+    var dir = try std.fs.cwd().openDir("src", .{ .iterate = true });
     var it = dir.iterate();
     while (try it.next()) |file| {
         if (file.kind != .file) {
@@ -38,7 +38,7 @@ pub fn build(b: *std.Build) !void {
         }
         const l = file.name.len - 4;
         if (l >= 0 and std.mem.eql(u8, file.name[l..], ".cpp")) {
-            const path = try std.fmt.allocPrint(b.allocator, "./dll/{s}", .{file.name});
+            const path = try std.fmt.allocPrint(b.allocator, "./src/{s}", .{file.name});
             dll.addCSourceFile(.{ .file = b.path(path), .flags = &cflags });
         }
     }

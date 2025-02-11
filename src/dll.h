@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Structs.h"
+#include "structs.h"
 
 void ShowBigLabel(const char* message);
 Ped* GetPedById(int id);

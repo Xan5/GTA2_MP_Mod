@@ -1,6 +1,6 @@
 #include <iostream>
 #include <windows.h>
-#include "Console.h"
+#include "console.h"
 
 void Log(const char* message) {
     std::cout << message << std::endl;

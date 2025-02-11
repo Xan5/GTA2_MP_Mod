@@ -1,6 +1,6 @@
 #include <comdef.h> 
-#include "GTA2Dll.h"
-#include "Console.h"
+#include "dll.h"
+#include "console.h"
 
 GameV2* game = (GameV2*)*(DWORD*)0x005eb4fc;
 S8* s8 = (S8*)*(DWORD*)0x006644bc;
