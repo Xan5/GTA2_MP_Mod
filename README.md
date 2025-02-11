@@ -1,1 +1,1 @@
-# GTA2_MP_Mod
+# GTA2 MP

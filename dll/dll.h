@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Structs.h"
+
 void ShowBigLabel(const char* message);
 Ped* GetPedById(int id);
 

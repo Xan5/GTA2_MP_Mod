@@ -1,7 +1,5 @@
-// Console.cpp : Defines logging functions
-
-#define _WIN32_WINNT _WIN32_WINNT_WINXP
-#include "stdafx.h"
+#include <iostream>
+#include <windows.h>
 #include "Console.h"
 
 void Log(const char* message) {

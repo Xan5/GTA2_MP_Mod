@@ -1,7 +1,7 @@
-// Injector.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// injector.cpp : This file contains the 'main' function. Program execution begins and ends there.
 
-#include <iostream>
 #include <windows.h>
+#include <shellapi.h>
 #include <tlhelp32.h>
 #include <comdef.h> 
 
@@ -12,10 +12,10 @@ BOOL loadRemoteDLL(HANDLE hProcess, const char* dllPath);
 
 int main()
 {
-	ShellExecute(NULL, "open", "gta2.exe", NULL, "...\\GTA2", SW_SHOWDEFAULT);
+	/* ShellExecuteA(NULL, "open", "gta2.exe", NULL, "...\\GTA2", SW_SHOWDEFAULT); */
 
 	_bstr_t exeName("gta2.exe");
-	char dllPath[] = "...\\GTA2MP\\Debug\\GTA2Dll.dll";
+	char dllPath[] = "dll.dll";
 
 	while (true)
 	{
@@ -23,7 +23,8 @@ int main()
 		if (hProcess != NULL) {
 			BOOL injectSuccessful = loadRemoteDLL(hProcess, dllPath);
 			if (injectSuccessful) {
-				//printf("[+] DLL injection successful! \n");
+				printf("[+] DLL injection successful! \n");
+				Sleep(1000);
 				exit(0);
 			}
 			else {
@@ -31,8 +32,6 @@ int main()
 				getchar();
 			}
 		}
-
-		Sleep(1000);
 	}
 }
 
@@ -78,23 +77,23 @@ HANDLE findProcess(WCHAR* processName) {
 
 	} while (Process32Next(hProcessSnap, &pe32));
 
-	printf("[-] %s has not been loaded into memory, aborting.\n", processName);
+	printf("[-] %ls has not been loaded into memory, aborting.\n", processName);
 	return NULL;
 }
 
 BOOL loadRemoteDLL(HANDLE hProcess, const char* dllPath) {
 	//printf("Enter any key to attempt DLL injection.");
 	//getchar();
-	Sleep(1000);
-
+	
 	// Allocate memory for DLL's path name to remote process
 	LPVOID dllPathAddressInRemoteMemory = VirtualAllocEx(hProcess, NULL, strlen(dllPath), MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 	if (dllPathAddressInRemoteMemory == NULL) {
-		printf("[-] VirtualAllocEx unsuccessful.\n");
+		printf("[-] VirtualAllocEx unsuccessful.\n"); 
 		getchar();
+		
 		return FALSE;
 	}
-
+	
 	// Write DLL's path name to remote process
 	BOOL succeededWriting = WriteProcessMemory(hProcess, dllPathAddressInRemoteMemory, dllPath, strlen(dllPath), NULL);
 
@@ -115,6 +114,7 @@ BOOL loadRemoteDLL(HANDLE hProcess, const char* dllPath) {
 			HANDLE remoteThread = CreateRemoteThread(hProcess, NULL, NULL, (LPTHREAD_START_ROUTINE)loadLibraryAddress, dllPathAddressInRemoteMemory, NULL, NULL);
 			if (remoteThread == NULL) {
 				printf("[-] CreateRemoteThread unsuccessful.\n");
+				getchar();
 				return FALSE;
 			}
 		}

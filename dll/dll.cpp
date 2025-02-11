@@ -1,7 +1,3 @@
-// GTA2Dll.cpp : Defines the exported functions for the DLL application.
-
-#define _WIN32_WINNT _WIN32_WINNT_WINXP
-#include "stdafx.h"
 #include <comdef.h> 
 #include "GTA2Dll.h"
 #include "Console.h"
